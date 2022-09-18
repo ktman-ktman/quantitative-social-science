@@ -1,0 +1,260 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Long-Term Effects of 9/11 on the Political Behavior of Victims' Families},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Long-Term Effects of 9/11 on the Political Behavior of Victims' Families}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+In this exercise, we examine a hypothesis that individuals who lost
+someone in the terrorist attacks of 9/11, whether a family relative or a
+neighbor, will have become more politically engaged.
+
+This exercise is based on: Hersh, E. D. 2013.
+``\href{http://dx.doi.org/10.1073/pnas.1315043110}{Long-Term Effect of
+September 11 on the Political Behavior of Victims' Families and
+Neighbors.}'' \emph{Proceedings of the National Academy of Sciences}
+110(52): 20959--63.
+
+We will examine this hypothesis using several different estimation
+techniques, focusing throughout on the effect of the attacks on the
+victims' families rather than their neighbors. The CSV data file,
+\texttt{victims9-11.csv}, contains the following variables:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.24\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.69\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{voter.id}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Unique identifiers of relatives and neighbors of the victims
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{treatment}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Families and neighbors of actual victims (1) vs control group (0)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{victim.status}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Families (2) vs neighbors (3) of victims and controls
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{ge20xx}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Voting in the \texttt{20xx} general election (\texttt{Y}=at the polls,
+\texttt{A}=absentee, \texttt{E}=early, \texttt{M}=by mail)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{fam.members}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Number of family members living with voter at their address
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{age}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Voter's age
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{party}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Voter's party affiliation (\texttt{D}=Democrat, \texttt{R}=Republicans,
+\texttt{N}=no affiliation)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{sex}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Voter's sex
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{pct.white}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Proportion of non-Hispanic white voters living on the same block
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{median.income}
+\end{minipage} & \begin{minipage}[t]{0.69\columnwidth}\raggedright
+Median income of voters living on the same block
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+Voters were included in the data on the basis of their relationship to
+actual victims - these constitute the two treatment groups - or if no
+such relationship existed but they were, otherwise, sufficiently similar
+to voters in the treatment groups - this constitutes the control group.
+
+\subsection{Question 1}\label{question-1}
+
+We begin by reformatting the data to facilitate our analysis. The three
+variables that contain non-numerical values are sex, party, and voting
+records. Rewrite these variables using the following coding rules: for
+the party variable, assign the value of $1$ to all Democrats, $-1$ to
+all Republicans, and $0$ for all other parties and non-affiliated
+citizens; for the sex variable, assign the value of $1$ to all female
+citizens and $0$ to all male citizens; finally, for each of the seven
+voting record variables, assign the value of $1$ if the individual voted
+in a given election, and $0$ otherwise.
+
+\subsection{Question 2}\label{question-2}
+
+We will now test the hypothesis. Calculate the sample Average Treatment
+Effect of the terrorist attacks on voter turnout separately for each of
+the seven general elections between 2000 and 2012. Focus on families of
+victims as the treatment, and disregard the neighbor category. For each
+of the seven point-estimates, compute the corresponding standard error.
+Assume that both the treatment and control groups form two random
+samples, and that the two samples are statistically independent. Then,
+using the quantiles of the standard normal distribution, calculate the
+95\% confidence intervals for each of the seven point-estimates. Plot
+the results where the horizontal axis represents the elections. Provide
+a brief interpretation, with a particular focus on the meaning of the
+confidence intervals you computed.
+
+\subsection{Question 3}\label{question-3}
+
+To examine the validity of the cross-sectional comparisons conducted in
+Question 2, check whether possible confounders are balanced between the
+treatment and control groups. Compare the means of the last six
+variables in the table above across the two groups along with their 95\%
+confidence intervals. Provide a brief interpretation of the results.
+What can you conclude about the validity of the cross-sectional
+comparisons?
+
+\subsection{Question 4}\label{question-4}
+
+Now, focus on the treatment group only. Compute the before-and-after
+estimate of the effect of the terrorist attacks on voter turnout for
+families of the victims by using the 2000 general election as a baseline
+for each of the subsequent six general elections. Next, calculate the
+standard errors corresponding to the six point-estimates. Using the
+standard errors, compute the 95\% confidence intervals for each of the
+six point-estimates. Plot the results. Provide a brief interpretation of
+your findings. \textbf{Hint}: Since you are now tracing the same sample
+evolve through time, you can no longer assume the independence of sample
+means in calculating the standard errors; take care to incorporate the
+covariance between voter turnout in 2000 and a subsequent election into
+your calculations.
+
+\subsection{Question 5}\label{question-5}
+
+We will now repeat the same analysis as in Question 4, but now using
+voters in the control group only. As before, be sure to restrict your
+analysis to family relatives of control victims rather than their
+neighbors. What does this analysis imply about the validity of the
+analysis in the previous question?
+
+\subsection{Question 6}\label{question-6}
+
+Calculate the difference-in-differences estimate for the general
+elections immediately surrounding the attacks, 2000 and 2002. Calculate
+the standard error for your estimate, and provide the 95\% confidence
+interval. Once again, you are allowed to use the quantiles of the
+standard normal distribution in calculating the confidence interval.
+Provide a brief interpretation of the result.
+
+\subsection{Question 7}\label{question-7}
+
+Repeat the previous difference-in-differences analysis for all six
+elections following the attacks. Throughout this analysis, use the 2000
+election as the baseline as done in the previous question. Plot the
+results with the horizontal axis representing different elections.
+Provide a substantive interpretation of the results.
+
+\end{document}

@@ -1,0 +1,221 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Co-ethnic Candidates and Voter Turnout},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Co-ethnic Candidates and Voter Turnout}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+For this problem set, we will analyze data from the following article:
+
+Fraga, Bernard. (2015)
+\href{http://dx.doi.org/10.1111/ajps.12172}{``Candidates or Districts?
+Reevaluating the Role of Race in Voter Turnout,''} \emph{American
+Journal of Political Science}, Vol. 60, No. 1, pp.~97--122.
+
+Fraga assesses the theory that minority voters are more likely to vote
+in elections featuring co-ethnic candidates. He shows that the
+association between minority voter turnout and co-ethnic candidates
+disappears once we take into account district-level racial composition.
+In particular, he demonstrates that in districts where blacks make up a
+greater share of the voting-age population, blacks in that district are
+more likely to vote in elections \emph{regardless} of candidate race.
+Although the main analyses he carries out are a bit more complicated
+than what we cover in \emph{QSS}, we can replicate his substantive
+findings using the multiple regression approach we've learned.
+
+A description of the variables is listed below:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.24\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{year}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+Year the election was held
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{state}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+State in which the election was held
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{district}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+District in which the election was held (unique within state but not
+across states)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{turnout}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+The proportion of the black voting-age population in a district that
+votes in the general election
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{CVAP}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+The proportion of a district's voting-age population that is black
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+\texttt{candidate}
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright
+Binary variable coded ``1'' when the election includes a black
+candidate; ``0'' when the election does not include a black candidate
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsection{Question 1}\label{question-1}
+
+Fraga analyzes turnout data for four different racial and ethnic groups,
+but for this analysis we will focus on the data for black voters. Load
+\texttt{blackturnout.csv}. Which years are included in the dataset? How
+many different states are included in the dataset?
+
+\subsection{Question 2}\label{question-2}
+
+Create a boxplot that compares turnout in elections with and without a
+co-ethnic candidate. Be sure to use informative labels. Interpret the
+resulting graph.
+
+\subsection{Question 3}\label{question-3}
+
+Run a linear regression with black turnout as your outcome variable and
+candidate co-ethnicity as your predictor. Report the coefficient on your
+predictor and the intercept. Interpret these coefficients. Do not merely
+comment on the direction of the association (i.e., whether the slope is
+positive or negative). Explain what the value of the coefficients mean
+in terms of the units in which each variable is measured. Based on these
+coefficients, what would you conclude about blacks voter turnout and
+co-ethnic candidates?
+
+\subsection{Question 4}\label{question-4}
+
+You decide to investigate the results of the previous question a bit
+more carefully because the elections with co-ethnic candidates may
+differ from the elections without co-ethnic candidates in other ways.
+Create a scatter plot where the x-axis is the proportion of co-ethnic
+voting-age population and the y-axis is black voter turnout. Color your
+points according to candidate co-ethnicity. That is, make the points for
+elections featuring co-ethnic candidates one color, and make the points
+for elections featuring no co-ethnic candidates a different color.
+Interpret the graph.
+
+\subsection{Question 5}\label{question-5}
+
+Run a linear regression with black turnout as your outcome variable and
+with candidate co-ethnicity and co-ethnic voting-age population as your
+predictors. Report the coefficients, including the intercept. Interpret
+the coefficients on the two predictors, ignoring the intercept for now
+(you will interpret the intercept in the next question). Explain what
+each coefficient represents in terms of the units of the relevant
+variables.
+
+\subsection{Question 6}\label{question-6}
+
+Now interpret the intercept from the regression model with two
+predictors. Is this intercept a substantively important or interesting
+quantity? Why or why not?
+
+\subsection{Question 7}\label{question-7}
+
+Based on the regression model with one predictor, what do you conclude
+about the relationship between co-ethnic candidates and black voter
+turnout? Based on the regression model with two predictors, what do you
+conclude about the relationshop between co-ethnic candidates and black
+voter turnout? Please ignore issues of statistical significance for this
+question given that it will be covered in Chapter 7 of \emph{QSS}.
+
+\end{document}

@@ -1,0 +1,334 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Coethnic Voting in Africa},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Coethnic Voting in Africa}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+To explore whether a political candidate can utilize his wife's
+ethnicity to garner coethnic support (where a voter prefers to vote for
+a candidate of his/her own ethnic group, and a well-established
+phenomenon in many African democracies), a group of researchers used
+observational time-series cross sectional data from the Afrobarometer (a
+public attitude survey on democracy and governance in more than 35
+countries in Africa, see
+\href{http://www.afrobarometer.org/}{Afrobarometer}) to establish
+patterns of preferring a president based on a coethnic presidential
+wife. The researchers then conducted an experiment where they randomly
+reminded potential voters in Benin that the Beninoise President Yayi
+Boni's wife, Chantal, is of the ethnic Fon group and asked them whether
+they approve of Yayi Boni. This exercise is based on:
+
+Adida, Claire, Nathan Combes, Adeline Lo, and Alex Verink. 2016.
+``\href{http://dx.doi.org/10.1177/0010414015621080}{The Spousal Bump: Do
+Cross-Ethnic Marriages Increase Political Support in Multiethnic
+Democracies?}'' \emph{Comparative Political Studies}, Vol. 49, No. 5,
+pp.~635-661.
+
+In the first dataset from Afrobarometer, the researchers focus on
+African democracies where information could be garnered about the
+ethnicities of the president and wife. For the purposes of this
+exercise, only African democracies where the president and wife are not
+of the same ethnicity are considered (i.e., the president and wife are
+not coethnic with one another), and the data is pre-subsetted to include
+only president non-coethnics. We will consider patterns of willingness
+to vote for the president amongst wife coethnics and non-coethnics
+across African democracies. Descriptions of the relevant variables in
+the data file \texttt{afb.csv} are:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.34\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.59\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{country}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Character variable indicating which country the respondent is from
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{wifecoethnic}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent is same ethnicity as president's wife, and
+\texttt{0} otherwise
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{oppcoethnic}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent is same ethnicity as main presidential
+opponent, and \texttt{0} otherwise
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{ethnicpercent}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Respondent's ethnic group fraction in respondent country.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vote}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent would vote for the president, \texttt{0}
+otherwise.
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+The second dataset is a survey experiment in Cotonou, Benin. Here the
+researchers randomly assigned survey respondents short biolographical
+passages on the then Beninoise president Yayi Boni that included no
+mention of his wife, included a mention of his wife, or included a
+mention of his Fon wife. Respondents were then asked whether they were
+willing to vote for Yayi Boni should an election be held and barring
+term limits. The goal of the experiment was to assess whether priming
+respondents about the president's Fon wife might raise support amongst
+wife coethnics for the president. Two pre-subsetted data from
+\texttt{benin.csv} are also provided: \texttt{coethnic.csv} which
+subsets \texttt{benin.csv} to only coethnic respondents with the wife,
+and \texttt{noncoethnic.csv} which subsets \texttt{benin.csv} to only
+noncoethnic respondents with the wife. Descriptions of the relevant
+variables in the data file \texttt{benin.csv} (and consequently
+\texttt{coethnic.csv} and \texttt{noncoethnic.csv}) are:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.34\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.59\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{sex}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent is female, and \texttt{0} otherwise
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{age}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Age of the respondent
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{ethnicity}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Ethnicity of the respondent
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{fon}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent is Fon, and \texttt{0} otherwise.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{passage}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{Control} if respondent given control passage, \texttt{Wife} for
+wife passage, \texttt{FonWife} for Fon wife passage
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vote}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+\texttt{1} if respondent would vote for the president, \texttt{0}
+otherwise.
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsection{Question 1}\label{question-1}
+
+Load the \texttt{afb.csv} data set. Look at a summary of the
+\texttt{afb} data to get a sense of what it looks like. Obtain a list of
+African democracies that are in the data set. Create a new binary
+variable, which is equal to \texttt{1} if the \texttt{ethnicpercent}
+variable is greater than its mean and is equal to \texttt{0} otherwise.
+Call this new variable \texttt{ethnicpercent2}.
+
+\subsection{Question 2}\label{question-2}
+
+What is the average willingness to vote for the president among all
+respondents? Now compute the average willingess separately for
+respondents who are coethnic with the presidential wife and respondents
+who are not. Given our initial hypothesis about how a president might be
+able to use his wife's ethnicity to get more support, how might we
+interpret the differences (or similarities) in the support amongst
+coethnics and non-coethnics?
+
+\subsection{Question 3}\label{question-3}
+
+We might be concerned that we have not taken into account potentially
+confounding factors such as whether 1) the respondent is part of a
+proportionally larger or smaller ethnic group and 2) whether the
+respondent is also coethnic with the major opposition leader. This is
+because if a respondent's ethnic group is quite small, the members might
+be less able to put forth a candidate of their exact ethnic label and
+have more incentive to support a president who, while not the same
+ethnicity, has a wife who does (and who therefore might have the wife's
+ethnic group interests at heart). It may also be that should an
+opposition candidate hold the same ethnicity as the respondent, such a
+``wife effect'' might be diminished.
+
+To investigate this possibility, subset the \texttt{afb} data to adjust
+for potential confounding variable \texttt{ethnicpercent2} created in
+the previous question. Consider the group of individuals who are of
+smaller than average ethnic groups. What is the average willingness to
+vote between wife coethnics and wife non-coethnics? Next, consider only
+the group of individuals who are not only from smaller than average
+ethnic groups but are also not coethnic with the opponent. What is the
+difference in average willingness to vote between wife coethnics and
+wife non-coethnics now? What do these results tell us about the
+relationship between the ``wife effect''?
+
+\subsection{Question 4}\label{question-4}
+
+The Afrobarometer data, while rich and inclusive of many countries, is
+observational data. Thus, it is difficult to estimate the effect of
+\emph{treatment}, which is coethnicity with the president's wife in the
+current application. To address this difficulty, the authors of the
+study conduct a survey experiment in Benin, a small democracy on the
+western coast of the African continent. It is also a country represented
+in the Afrobarometer data set. The president at the time of the survey
+was Yayi Boni, who is of two ethnicities, Nago and Bariba. His wife
+Chantal is Fon. For the experiment, the authors randomly surveyed adult
+walkers on the streets of Cotonou (the capital of Benin). Respondents
+were asked some personal information, such as gender and age, as well as
+their ethnicity. Then, respondents were randomly assigned to either the
+control or one of two treatment groups (\emph{Wife} and \emph{Fon
+Wife}):
+
+In the control condition, respondents were read the following short
+biographical sketchof Yayi Boni, where there is no indication of the
+president's wife, Chantal:
+
+\begin{quote}
+Yayi Boni became President of Benin on April 6, 2006 and was just
+re-elected for a second term. He has led a presidential campaign based
+on economic growth and suppressing corruption. However, some critics
+claim that the country's economic growth has been disappointing, and
+that Boni's administration is, itself, corrupt.
+\end{quote}
+
+In the first treatment group, \emph{Wife}, respondents were read the
+same passage as the control group, except the president's wife Chantal
+is explicitly mentioned at the beginning. That is, the above script is
+preceded with ``Accompanied by his wife, Chantal''. In the second
+treatment group, \emph{Fon Wife}, respondents were read again the same
+passage, except the ethnicity of Chantal is explicitly mentioned with
+the script starting by ``Accompnaied by his Fon wife, Chantal''.
+
+Now we turn to the \texttt{benin} dataset. Does being reminded that you
+are coethnic with the president's wife increase your willingness to vote
+for the president? The data has already been subsetted from the original
+experiment data so it contains only respondents who are not coethnic
+with the president (why would this be important to consider?). Take a
+closer look at the \texttt{ethnicity} variable by creating a table. How
+many ethnic groups are there represented in this dataset? Compare the
+mean willingness to vote for the president between the \emph{Fon Wife}
+and control group. Briefly interpret the result. Was it important for
+the researchers to add a treatment with just the mention of the
+president's wife without her ethnicity? Why or why not?
+
+\subsection{Question 5}\label{question-5}
+
+Now compare the mean willingness to vote for the president between the
+\emph{Fon Wife} and control group for wife coethnics only (load
+\texttt{coethnic.csv} file). Briefly interpret the result. What happens
+when we compare wife coethnics in the \emph{Fon Wife} to the \emph{Wife}
+group? The \emph{Wife} to the control group? Do these results apply to
+respondents who are NOT coethnic with the president's wife (load
+\texttt{noncoethnic.csv} file)?
+
+\end{document}

@@ -1,0 +1,239 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={The Mark of a Criminal Record},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{The Mark of a Criminal Record}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+In this exercise, we analyze the causal effects of a criminal record on
+the job prospects of white and black job applicants. This exercise is
+based on:
+
+Pager, Devah. (2003). ``\href{https://doi.org/10.1086/374403}{The Mark
+of a Criminal Record}.'' \emph{American Journal of Sociology}
+108(5):937-975. You are also welcome to watch Professor Pager discuss
+the design and result \href{https://youtu.be/nUZqvsF_Wt0}{here}.
+
+To isolate the causal effect of a criminal record for black and white
+applicants, Pager ran an audit experiment. In this type of experiment,
+researchers present two similar people that differ only according to one
+trait thought to be the source of discrimination. This approach was used
+in the resume experiment described in Chapter 2 of \emph{QSS}, where
+researchers randomly assigned stereotypically African-American-sounding
+names and stereotypically white-sounding names to otherwise identical
+resumes to measure discrimination in the labor market.
+
+To examine the role of a criminal record, Pager hired a pair of white
+men and a pair of black men and instructed them to apply for existing
+entry-level jobs in the city of Milwaukee. The men in each pair were
+matched on a number of dimensions, including physical appearance and
+self-presentation. As much as possible, the only difference between the
+two was that Pager randomly varied which individual in the pair would
+indicate to potential employers that he had a criminal record. Further,
+each week, the pair alternated which applicant would present himself as
+an ex-felon. To determine how incarceration and race influence
+employment chances, she compared callback rates among applicants with
+and without a criminal background and calculated how those callback
+rates varied by race.
+
+In the data you will use \texttt{ciminalrecord.csv} nearly all these
+cases are present, but 4 cases have been redacted. As a result, your
+findings may differ slightly from those in the paper. The names and
+descriptions of variables are shown below. You may not need to use all
+of these variables for this activity. We've kept these unnecessary
+variables in the dataset because it is common to receive a dataset with
+much more information than you need.
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.29\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.65\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{jobid}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+Job ID number
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{callback}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if tester received a callback, 0 if the tester did not receive a
+callback.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{black}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if the tester is black, 0 if the tester is white.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{crimrec}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if the tester has a criminal record, 0 if the tester does not.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{interact} \texttt{city}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if tester interacted with employer during the job application, 0 if
+tester does not interact with employer. 1 is job is located in the city
+center, 0 if job is located in the suburbs.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{distance}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+Job's average distance to downtown.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{custserv}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if job is in the costumer service sector, 0 if it is not.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.29\columnwidth}\raggedright
+\texttt{manualskill}
+\end{minipage} & \begin{minipage}[t]{0.65\columnwidth}\raggedright
+1 if job requires manual skills, 0 if it does not.
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsection{Question 1}\label{question-1}
+
+Begin by loading the data into R and explore the data. How many cases
+are there in the data? Run \texttt{summary()} to get a sense of things.
+In how many cases is the tester black? In how many cases is he white?
+
+\subsection{Question 2}\label{question-2}
+
+Now we examine the central question of the study. Calculate the
+proportion of callbacks for white applicants with and without a criminal
+record, and calculate this proportion for black applicants with and
+without a criminal record.
+
+\subsection{Question 3}\label{question-3}
+
+What is the difference in callback rates between individuals with and
+without a criminal record within each race. What do these specific
+results tell us? Consider both the difference in callback rates for
+records with and without a criminal record and the ratio of callback
+rates for these two types of records.
+
+\subsection{Question 4}\label{question-4}
+
+Compare the callback rates of whites \emph{with} a criminal record
+versus blacks \emph{without} a criminal record. What do we learn from
+this comparison?
+
+\subsection{Question 5}\label{question-5}
+
+When carrying out this experiment, Pager made many decisions. For
+example, she opted to conduct the research in Milwaukee; she could have
+done the same experiment in Dallas or Topeka or Princeton. She ran the
+study at a specific time: between June and December of 2001. But, she
+could have also run it at a different time, say 5 years earlier or 5
+years later. Pager decided to hire 23-year-old male college students as
+her testers; she could have done the same experiment with 23-year-old
+female college students or 40-year-old male high school drop-outs.
+Further, the criminal record she randomly assigned to her testers was a
+felony convinction related to drugs (possession with intent to
+distribute, cocaine). But, she could have assigned her testers a felony
+conviction for assault or tax evasion. Pager was very aware of each of
+these decisions, and she discusses them in her paper. Now you should
+pick \emph{one} of these decisions described above or another decision
+of your choosing. Speculate about how the results of the study might (or
+might not) change if you were to conduct the same study but alter this
+specific decision. This is part of thinking about the \emph{external
+validity} of the study.
+
+\end{document}

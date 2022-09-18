@@ -1,0 +1,248 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Voting in the United Nations General Assembly},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Voting in the United Nations General Assembly}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+Like legislators in the US Congress, the member states of the United
+Nations (UN) are politically divided on many issues such as trade,
+nuclear disarmament, and human rights. During the Cold War, countries in
+the UN General Assembly tended to split into two factions: one led by
+the capitalist United States and the other by the communist Soviet
+Union. In this exercise, we will analyze how states' ideological
+positions, as captured by their votes on UN resolutions, have changed
+since the fall of communism.
+
+This exercise is based on Michael A. Bailey, Anton Strezhnev, and Erik
+Voeten. ``Estimating Dynamic State Preferences from United Nations
+Voting Data.'' \emph{Journal of Conflict Resolution}, August 2015.
+
+The data is called \texttt{unvoting.csv} and the variables are:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.25\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.68\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{CountryName}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+The name of the country
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{idealpoint}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Its estimated ideal point
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{Year}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+The year for which the ideal point is estimated
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{PctAgreeUS}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+The percentage of votes that agree with the US on the same issue
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{PctAgreeRUSSIA}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+The percentage of votes that agree with Russia/the Soviet Union on the
+same issue
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+In the analysis that follows, we measure state preferences in two ways.
+Note that the data for 1964 are missing due to the absence of roll call
+data.
+
+First, we can use the percentage of votes by each country that coincide
+with votes on the same issue cast by the two major Cold War powers: the
+United States and the Soviet Union. For example, if a country voted for
+ten resolutions in 1992, and if its vote matched the United States's
+vote on exactly six of these resolutions, the variable
+\texttt{PctAgreeUS} in 1992 would equal 60 for this country.
+
+Second, we can also measure state preferences in terms of numerical
+ideal points.\\These ideal points capture what international relations
+scholars have called countries' \emph{liberalism} on issues such as
+political freedom, democratization, and financial liberalization. The
+two measures are highly correlated, with larger (more liberal) ideal
+points corresponding to a higher percentage of votes that agree with the
+US.
+
+\subsection{Question 1}\label{question-1}
+
+We begin by examining how the distribution of state ideal points has
+changed since the end of communism. Plot the distribution of ideal
+points separately for 1980 and 2000 - about ten years before and after
+the fall of the Berlin Wall, respectively. Add median to each plot as a
+vertical line. How do the two distributions differ? Pay attention to the
+degree of polarization and give a brief substantive interpretation of
+the results. Use the \texttt{quantile} function to quantify the patterns
+you identified.
+
+\subsection{Question 2}\label{question-2}
+
+Next, examine how the number of countries voting with the US has changed
+over time. Plot the average percent agreement with US across all
+counties over time. Also, add the average percent agreement with Russia
+as another line for comparison. Does the US appear to be getting more or
+less isolated over time, as compared to Russia? What are some countries
+that are consistently pro-US? What are the most pro-Russian countries?
+Give a brief substantive interpretation of the results.
+
+\subsection{Question 3}\label{question-3}
+
+One problem of using the percentage of votes that agree with the US or
+Russia as a measure of state preferences is that the ideological
+positions, and consequently the voting patterns, of the two countries
+might have themselves changed over time. This makes it difficult to know
+which countries' ideological positions have changed. Investigate this
+issue by plotting the evolution of the two countries' ideal points over
+time. Add the yearly median ideal point of all countries. How might the
+results of this analysis modify (or not) your interpretation of the
+previous analysis?
+
+\subsection{Question 4}\label{question-4}
+
+Let's examine how countries that were formerly part of the Soviet Union
+differ in terms of their ideology and UN voting compared to countries
+that were not part of the Soviet Union. The former Soviet Union
+countries are: Estonia, Latvia, Lithuania, Belarus, Moldova, Ukraine,
+Armenia, Azerbaijian, Georgia, Kazakhstan, Kyrgyzstan, Tajikistan,
+Uzbekistan, and Russia. The \texttt{\%in\%} operator, which is used as
+\texttt{x \%in\% y}, may be useful. This operator returns a logical
+vector whose element is \texttt{TRUE} (\texttt{FALSE}) if the
+corresponding element of vector \texttt{x} is equal to a value contained
+in vector \texttt{y}. Focus on the most recently available UN data from
+2012 and plot each Post-Soviet Union state's ideal point against the
+percentage of its votes that agree with the United States. Compare the
+post Soviet Union states, within the same plot, against the other
+countries. Briefly comment on what you observe.
+
+\subsection{Question 5}\label{question-5}
+
+We have just seen that while some post-Soviet countries have retained
+non-liberal ideologies, other post-Soviet countries were much more
+liberal in 2012. Let's examine how the median ideal points of
+Soviet/post-Soviet countries and all other countries has varied over all
+the years in the data. Plot these median ideal points by year. Be sure
+to indicate 1989, the year of the fall of the Berlin Wall, on the graph.
+Briefly comment on what you observe.
+
+\subsection{Question 6}\label{question-6}
+
+Following the end of communism, countries that were formerly part of the
+Soviet Union have become much more ideologically diverse. Is this also
+true of the world as a whole? In other words, do countries still divide
+into two ideological factions? Let's assess this question by applying
+the \texttt{k}-means clustering algorithm to ideal points and the
+percentage of votes agreeing with the US. Initiate the algorithm with
+just two centroids and visualize the results separately for 1989 and
+2012. Briefly comment on the results.
+
+\subsection{Question 7}\label{question-7}
+
+We saw earlier that the median post-Soviet country joined the liberal
+cluster after the fall of communism. Which countries, possibly from
+outside the Soviet Union, followed suit? Conversely, are there countries
+that exited the liberal cluster after the end of communism? Identify the
+countries which were in the non-liberal cluster in 1989 but belonged to
+the liberal cluster in 2012. Again, the \texttt{\%in\%} operator may be
+useful. Then, do the reverse, so that you can see which countries exited
+the liberal cluster. Briefly comment on what you observe.
+
+\end{document}

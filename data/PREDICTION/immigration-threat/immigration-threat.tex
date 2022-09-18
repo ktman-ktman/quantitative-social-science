@@ -1,0 +1,310 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Immigration attitudes: the role of economic and cultural threat},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Immigration attitudes: the role of economic and cultural threat}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+Why do the majority of voters in the U.S. and other developed countries
+oppose increased immigration? According to the conventional wisdom and
+many economic theories, people simply do not want to face additional
+competition on the labor market (\emph{economic threat} hypothesis).
+Nonetheless, most comprehensive empirical tests have failed to confirm
+this hypothesis and it appears that people often support policies that
+are against their personal economic interest. At the same time, there
+has been growing evidence that immigration attitudes are rather
+influenced by various deep-rooted ethnic and cultural stereotypes
+(\emph{cultural threat} hypothesis). Given the prominence of workers'
+economic concerns in the political discourse, how can these findings be
+reconciled?
+
+This exercise is based in part on Malhotra, N., Margalit, Y. and Mo,
+C.H., 2013. ``\href{https://dx.doi.org/10.1111/ajps.12012}{Economic
+Explanations for Opposition to Immigration: Distinguishing between
+Prevalence and Conditional Impact}.'' \emph{American Journal of
+Political Science}, Vol. 38, No. 3, pp.~393-433.
+
+The authors argue that, while job competition is not a prevalent threat
+and therefore may not be detected by aggregating survey responses, its
+\emph{conditional} impact in selected industries may be quite sizable.
+To test their hypothesis, they conduct a unique survey of Americans'
+attitudes toward H-1B visas. The plurality of H-1B visas are occupied by
+Indian immigrants, who are skilled but ethnically distinct, which
+enables the authors to measure a specific skill set (high technology)
+that is threatened by a particular type of immigrant (H-1B visa
+holders). The data set \texttt{immig.csv} has the following variables:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.35\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.58\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{age}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+Age (in years)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{female}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+\texttt{1} indicates female; \texttt{0} indicates male
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{employed}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+\texttt{1} indicates employed; \texttt{0} indicates unemployed
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{nontech.whitcol}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+\texttt{1} indicates non-tech white-collar work (e.g., law)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{tech.whitcol}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+\texttt{1} indicates high-technology work
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{expl.prejud}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+Explicit negative stereotypes about Indians (continuous scale, 0-1)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{impl.prejud}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+Implicit bias against Indian Americans (continuous scale, 0-1)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{h1bvis.supp}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+Support for increasing H-1B visas (5-point scale, 0-1)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+\texttt{indimm.supp}
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedright
+Support for increasing Indian immigration (5-point scale, 0-1)
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+The main outcome of interest (\texttt{h1bvis.supp}) was measured as a
+following survey item: ``Some people have proposed that the U.S.
+government should increase the number of H-1B visas, which are
+allowances for U.S. companies to hire workers from foreign countries to
+work in highly skilled occupations (such as engineering, computer
+programming, and high-technology). Do you think the U.S. should
+increase, decrease, or keep about the same number of H-1B visas?''
+Another outcome (\texttt{indimm.supp}) similarly asked about the ``the
+number of immigrants from India.'' Both variables have the following
+response options: \texttt{0} = ``decrease a great deal'', \texttt{0.25}
+= ``decrease a little'', \texttt{0.5} = ``keep about the same'',
+\texttt{0.75} = ``increase a little'', \texttt{1} = ``increase a great
+deal''.
+
+To measure explicit stereotypes (\texttt{expl.prejud}), respondents were
+asked to evaluate Indians on a series of traits: capable, polite,
+hardworking, hygienic, and trustworthy. All responses were then used to
+create a scale lying between \texttt{0} (only positive traits of
+Indians) to \texttt{1} (no positive traits of Indians). Implicit bias
+(\texttt{impl.prejud}) is measured via the \emph{Implicit Association
+Test} (IAT) which is an experimental method designed to gauge the
+strength of associations linking social categories (e.g., European vs
+Indian American) to evaluative anchors (e.g., good vs bad). Individual
+who are prejudiced against Indians should be quicker at making
+classifications of faces and words when \emph{European American}
+(\emph{Indian American}) is paired with \emph{good} (\emph{bad}) than
+when \emph{European American} (\emph{Indian American}) is paired with
+\emph{bad} (\emph{good}). If you want, you can test yourself
+\href{https://implicit.harvard.edu/implicit/takeatest.html}{here}.
+
+\subsection{Question 1}\label{question-1}
+
+Start by examining the distribution of immigration attitudes (as factor
+variables). What is the proportion of people who are willing to increase
+the quota for high-skilled foreign professionals (\texttt{h1bvis.supp})
+or support immigration from India (\texttt{indimm.supp})?
+
+Now compare the distribution of two distinct measures of cultural
+threat: explicit stereotyping about Indians (\texttt{expl.prejud}) and
+implicit bias against Indian Americans (\texttt{impl.prejud}). In
+particular, create a scatterplot, add a linear regression line to it,
+and calculate the correlation coefficient. Based on these results, what
+can you say about their relationship?
+
+\subsection{Question 2}\label{question-2}
+
+Compute the correlations between all four policy attitude and cultural
+threat measures. Do you agree that cultural threat is an important
+predictor of immigration attitudes as claimed in the literature?
+
+If the labor market hypothesis is correct, opposition to H-1B visas
+should also be more pronounced among those who are economically
+threatened by this policy such as individuals in the high-technology
+sector. At the same time, tech workers should not be more or less
+opposed to general Indian immigration because of any \emph{economic}
+considerations. First, regress H-1B and Indian immigration attitudes on
+the indicator variable for tech workers (\texttt{tech.whitcol}). Do the
+results support the hypothesis? Is the relationship different from the
+one involving cultural threat and, if so, how?
+
+\subsection{Question 3}\label{question-3}
+
+When examining hypotheses, it is always important to have an appropriate
+comparison group. One may argue that comparing tech workers to everybody
+else as we did in Question 2 may be problematic due to a variety of
+confounding variables (such as skill level and employment status).
+First, create a single factor variable \texttt{group} which takes a
+value of \texttt{tech} if someone is employed in tech,
+\texttt{whitecollar} if someone is employed in other ``white-collar''
+jobs (such as law or finance), \texttt{other} if someone is employed in
+any other sector, and \texttt{unemployed} if someone is unemployed.
+Then, compare the support for H-1B across these conditions by using the
+linear regression. Interpret the results: is this comparison more or
+less supportive of the labor market hypothesis than the one in Question
+2?
+
+Now, one may also argue that those who work in the tech sector are
+disproportionately young and male which may confound our results. To
+account for this possibility, fit another linear regression but also
+include \texttt{age} and \texttt{female} as pre-treatment covariates (in
+addition to \texttt{group}). Does it change the results and, if so, how?
+
+Finally, fit a linear regression model with all threat indicators
+(\texttt{group}, \texttt{expl.prejud}, \texttt{impl.prejud}) and
+calculate its $R^2$. How much of the variation is explained? Based on
+the model fit, what can you conclude about the role of threat factors?
+
+\subsection{Question 4}\label{question-4}
+
+Besides economic and cultural threat, many scholars also argue that
+gender is an important predictor of immigration attitudes. While there
+is some evidence that women are slightly less opposed to immigration
+than men, it may also be true that gender conditions the very effect of
+other factors such as cultural threat. To see if it is indeed the case,
+fit a linear regression of H-1B support on the interaction between
+gender and implicit prejudice. Then, create a plot with the predicted
+level of H-1B support (y-axis) across the range of implicit bias
+(x-axis) by gender. Considering the results, would you agree that gender
+alters the relationship between cultural threat and immigration
+attitudes?
+
+Age is another important covariate. Fit two regression models in which
+H-1B support is either a linear or quadratic function of age. Compare
+the results by plotting the predicted levels of support (y-axis) across
+the whole age range (x-axis). Would you say that people become more
+opposed to immigration with age?
+
+\subsection{Question 5 (Optional)}\label{question-5-optional}
+
+To corroborate your conclusions with regard to cultural threat, create
+separate binary variables for both prejudice indicators based on their
+median value (\texttt{1} if \texttt{\textgreater{}} than the median) and
+then compare average H-1B and Indian immigration attitudes (as numeric
+variables) depending on whether someone is implicitly or explicitly
+prejudiced (or both). What do these comparisons say about the role of
+cultural threat?
+
+What about the role of economic threat? One may argue that tech workers
+are simply more or less prejudiced against Indians than others. To
+account for this possibility, investigate whether economic threat is in
+fact distinguishable from cultural threat as defined in the study. In
+particular, compare the distribution of cultural threat indicator
+variable using the Q-Q plot depending on whether someone is in the
+high-technology sector. Would you conclude that cultural and economic
+threat are really distinct?
+
+\end{document}

@@ -1,0 +1,224 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Access to Information and Attitudes towards Intimate Partner Violence},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Access to Information and Attitudes towards Intimate Partner Violence}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+In this exercise, we examine cross-national differences in attitudes
+towards domestic violence and access to information. We explore the
+hypothesis that there is an association at an aggregate level between
+the extent to which individuals in a country have access to knowledge
+and new information, both through formal schooling and through the mass
+media, and their likelihood of condemning acts of intimate partner
+violence. This exercise is in part based on:
+
+Pierotti, Rachel. (2013).
+``\href{http://dx.doi.org/10.1177/0003122413480363}{Increasing Rejection
+of Intimate Partner Violence: Evidence of Global Cultural Diffusion}.''
+\emph{American Sociological Review}, 78: 240-265.
+
+We use data from the Demographic and Health Surveys, which are a set of
+over 300 nationally, regionally and residentially representative surveys
+that have been fielded in developing countries around the world,
+beginning in 1992. The surveys employ a stratified two-stage cluster
+design. In the first stage enumeration areas (EA) are drawn from Census
+files. In the second stage within each EA a sample of households is
+drawn from an updated list of households. In addition, the surveys have
+identical questionnaires and trainings for interviewers, enabling the
+data from one country to be directly compared with data collected in
+other countries. It is important to note that different groups of
+countries are surveyed every year.
+
+In the study, the author used these data to show that ``women with
+greater access to global cultural scripts through urban living,
+secondary education, or access to media were more likely to reject
+intimate partner violence.'' The data set is in the csv file
+\texttt{dhs\_ipv.csv}. The names and descriptions of variables are:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.22\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.72\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{beat\_goesout}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Percentage of women in each country that think a husband is justified to
+beat his wife if she goes out without telling him.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{beat\_burnfood}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Percentage of women in each country that think a husband is justified to
+beat his wife if she burns his food.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{no\_media}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Percentage of women in each country that rarely encounter a newspaper,
+radio, or television.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{sec\_school}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Percentage of women in each country with secondary or higher education.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{year}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Year of the survey
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{region}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Region of the world
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+\texttt{country}
+\end{minipage} & \begin{minipage}[t]{0.72\columnwidth}\raggedright
+Country
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+Note that there are two indicators of \emph{attitudes towards domestic
+violence}: \texttt{beat\_goesout} and \texttt{beat\_burnfood}. There are
+also two indicators of \emph{access to information}:
+\texttt{sec\_school} and \texttt{no\_media}.
+
+\subsection{Question 1}\label{question-1}
+
+Let's begin by examining the association between attitudes towards
+intimate partner violence and the two exposure to information variables
+in our data. Load the \texttt{dhs\_ipv.csv} data set. Use scatterplots
+to examine the bivariate relationship between \texttt{beat\_goesout} and
+\texttt{no\_media} as well as between \texttt{beat\_goesout} and
+\texttt{sec\_school}. Repeat these bivariate graphs between
+\texttt{beat\_burnfood} and \texttt{no\_media}, as well as
+\texttt{beat\_burnfood} and \texttt{sec\_school}. Be sure to add
+informative axis labels. Briefly interpret these graphs in light of the
+hypothesis of the study.
+
+\subsection{Question 2}\label{question-2}
+
+Compute the correlation coefficient between \texttt{beat\_burnfood} and
+media exposure, as well as between \texttt{beat\_burnfood} and
+education. Remember to use complete observations. What do these measures
+tell us about the association between education and media exposure with
+attitudes towards intimate partner violence?
+
+\subsection{Question 3}\label{question-3}
+
+We proceed to explore the national-level differences in attitudes
+towards domestic violence. First, use boxplots to compare the variation
+in the percentege of \texttt{beat\_burnfood} between different regions
+of the world using \texttt{region}. What are the main differences across
+regions in terms of the median and dispersion of the distribution?
+Second, using boxplots examine the distribution of \texttt{no\_media}
+and \texttt{sec\_school} by region of the world. Comment on the main
+differences of the distribution of these variables across regions.
+
+\subsection{Question 4}\label{question-4}
+
+An important point of the researcher's hypothesis is that the support
+towards intimate partner violence should \emph{decrease} over time, as
+more women across regions have access to formal schooling and exposure
+to mass media. To test this idea, using time-series plots, examine the
+trends in \texttt{beat\_burnfood} from 1999-2014 \emph{within each
+region}. Thinking about the study design, what should we consider before
+trusting that this plot shows a change over time in attitudes?
+
+\end{document}

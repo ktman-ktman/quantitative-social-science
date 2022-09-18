@@ -1,0 +1,352 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Reducing Transphobia via Canvassing},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Reducing Transphobia via Canvassing}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+Can transphobia be reduced through in-person conversations and
+perspective-taking exercises, or \emph{active processing}? Following up
+on \href{http://dx.doi.org/10.1126/science.1256151}{the research} that
+was shown to be fabricated, two researchers conducted a door-to-door
+canvassing experiment in South Florida targeting anti-transgender
+prejudice in order to answer this question. Canvassers held single,
+approximately 10-minute conversations that encouraged actively taking
+the perspective of others with voters to see if these conversations
+could markedly reduce prejudice. This exercise is based on the following
+study:
+
+Broockman, David and Joshua Kalla. 2016.
+``\href{https://dx.doi.org/10.1126/science.aad9713}{Durably reducing
+transphobia: a field experiment on door-to-door canvassing}.''
+\emph{Science}, Vol. 352, No. 6282, pp.~220-224.
+
+In the experiment, the authors first recruited registered voters
+($n=68378$) via mail for an online baseline survey, presented as the
+first in a series of surveys. They then randomly assigned respondents of
+this baseline survey ($n=1825$) to either a treatment group targeted
+with the intervention ($n=913$) or a placebo group targeted with a
+conversation about recycling ($n=912$). For the intervention, 56
+canvassers first knocked on voters' doors unannounced. Then, canvassers
+asked to speak with the subject on their list and confirmed the person's
+identity if the person came to the door. A total of several hundred
+individuals ($n=501$) came to their doors in the two conditions. For
+logistical reasons unrelated to the original study, we further reduce
+this dataset to ($n=488$) which is the full sample that appears in the
+\texttt{transphobia.csv} data.
+
+The canvassers then engaged in a series of strategies previously shown
+to facilitate active processing under the treatment condition:
+canvassers informed voters that they might face a decision about the
+issue (whether to vote to repeal the law protecting transgender people);
+canvassers asked voters to explain their views; and canvassers showed a
+video that presented arguments on both sides. Canvassers defined the
+term ``transgender'' at this point and, if they were transgender
+themselves, noted this. The canvassers next attempted to encourage
+``analogic perspective-taking''. Canvassers first asked each voter to
+talk about a time when they themselves were judged negatively for being
+different. The canvassers then encouraged voters to see how their own
+experience offered a window into transgender people's experiences,
+hoping to facilitate voters' ability to take transgender people's
+perspectives. The intervention ended with another attempt to encourage
+active processing by asking voters to describe if and how the exercise
+changed their mind. All of the former steps constitutes the
+``treatment.''
+
+The placebo group was reminded that recycling was most effective when
+everyone participates. The canvassers talked about how they were working
+on ways to decrease environmental waste and asked the voters who came to
+the door about their support for a new law that would require
+supermarkets to charge for bags instead of giving them away for free.
+This was meant to mimic the effect of canvassers interacting with the
+voters in face-to-face conversation on a topic different from
+transphobia.
+
+The authors then asked the individuals who came to their doors in either
+condition ($n=488$) to complete follow-up online surveys via email
+presented as a continuation of the baseline survey. These follow-up
+surveys began 3 days, 3 weeks, 6 weeks, and 3 months after the
+intervention when the baseline survey was also conducted. For the
+purposes of this exercise, we will be using the \texttt{tolerance.t\#}
+variables (where \texttt{\#} is 0 through 4) as the main outcome
+variables of interest. The authors constructed these dependent variables
+\texttt{tolerance.t\#} as indexes by using several other measures that
+are not included in this exercise. In building this index, the authors
+scaled the variables such that they have a mean of 0 and standard
+deviation of 1 for the placebo group. Higher values indicate higher
+tolerance, lower values indicate lower tolerance relative to the placebo
+group.
+
+The data set is the file \texttt{transphobia.csv}. Variables that begin
+with \texttt{vf\_} come from the voter file. Variables in this dataset
+are described below:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.34\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.59\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{id}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Respondent ID
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vf\_age}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Age
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vf\_party}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Party: \texttt{D}=Democrats, \texttt{R}=Republicans and
+\texttt{N}=Independents
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vf\_racename}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Race: \texttt{African American}, \texttt{Caucasian}, \texttt{Hispanic}
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{vf\_female}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Gender: \texttt{1} if female, \texttt{0} if male
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{treat\_ind}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Treatment assignment: \texttt{1}=treatment, \texttt{0}=placebo
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{treatment.delivered}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Intervention was actually delivered (=\texttt{1}) vs.~was not
+(=\texttt{0})
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{tolerance.t0}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Outcome tolerance variable at Baseline
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{tolerance.t1}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+(see above) Captured at 3 days after Baseline
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{tolerance.t2}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+(see above) Captured at 3 weeks after Baseline
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{tolerance.t3}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+(see above) Captured at 6 weeks after Baseline
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{tolerance.t4}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+(see above) Captured at 3 months after Baseline
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsection{Question 1}\label{question-1}
+
+For each of the five waves, including the baseline survey, compute the
+sample average treatment effect of being assigned (\texttt{treat\_ind})
+to having an in-person conversation about perspective-taking for
+transgender issues on tolerance towards the transgender community.
+Interpret the estimates and provide their implications for the internal
+validity of the study as well as the hypothesis in question. Pay
+attention to how the outcome variables were created when interpreting
+the size of estimated treatment effect. Next, plot the average tolerance
+level separately for the treatment and placebo group over time. Use
+solid (open) circles for the treatment (placebo) groups, respectively,
+and connect these points with lines. The horizontal axis should
+represent the number of days from the baseline survey. Interpret the
+resulting graph.
+
+\subsection{Question 2}\label{question-2}
+
+We might wish to know the stickiness of attitudes over time. Compute
+(separately) the correlation coefficients for the treatment and placebo
+groups (based on assignment to treatment or placebo) across each 2-way
+combination of the dependent variables: \texttt{tolerance.t0},
+\texttt{tolerance.t1}, \texttt{tolerance.t2}, \texttt{tolerance.t3} and
+\texttt{tolerance.t4}? Then find the difference in correlation
+coefficients between the placebo and treatment groups. Interpret the
+resulting correlations. Is there a difference across the groups?
+
+\subsection{Question 3}\label{question-3}
+
+The authors of the study posited that it might be possible that
+Republicans, Democrats, and Independents respond differently to the
+treatment from one another because of party policy differences. It is
+also possible that respondent race might interact with the treatment in
+different ways resulting in different treatment effects. That is, there
+might be heterogeneous treatment effects of being assigned to the
+treatment (\texttt{treat\_ind}) with \texttt{vf\_party} and/or
+\texttt{vf\_racename}. Evaluate whether these two hypotheses are true by
+finding the differences in average treatment effects by party as well as
+by race in treatment and placebo groups across waves. Provide a time
+series plot of the treatment effects over time separately by party and
+by race with informative labels. Interpret the resulting plots. Pay
+attention to how the outcome variables were created when interpreting
+the magnitude of treatment effects.
+
+\subsection{Question 4}\label{question-4}
+
+Attrition, or drop-out, is a common problem for panel survey studies. In
+the case of the transphobia experiment, some individuals who responded
+to the baseline survey did not complete follow up surveys. Examine the
+extent to which the sample remained representative of the original
+sample with the implementation of each survey wave, by computing the
+attrition rate (i.e., the proportion of baseline survey respondents who
+did not answer each subsequent survey) separately for the placebo and
+treatment groups over time. What is the attrition rate for placebo and
+treatment groups going from Baseline (Wave 0) to 3 days (Wave 1)? From
+Baseline (Wave 0) to 3 weeks (Wave 2)? Continue for all Waves and create
+a time series plot for the attrition rate by group. Do we observe any
+asymmetrical attrition based on treatment group? How might differences
+in attrition across groups affect how we interpret our findings?
+
+Moreover, is attrition more likely along certain covariates? Explore
+this question with regards to \texttt{vf\_female} and
+\texttt{vf\_party}, calculating the attrition rate for each subgroup
+(female, male, democrat, republican) in Wave 4 only. Comment on some of
+the implications attrition through these covariates would have for the
+analysis.
+
+\subsection{Question 5}\label{question-5}
+
+We have defined the treatment and placebo groups based on the condition
+to which an individual was randomly assigned. However, in the experiment
+not everyone assigned to the treatment condition received the treatment.
+Of the 236 individuals who identified themselves at their doors in the
+treatment group, 185 began the conversation about transphobia rather
+than refusing to talk at all after identifying themselves and hearing
+the canvassers' introduction. In addition, the treatment (conversation
+about transphobia) was inadvertently delivered to 11 individuals in the
+placebo group (who were supposed to have a conversation about recycling)
+due to canvasser error.
+
+Compute the average difference in the tolerance level (separately for
+each wave as done in Question 1) among the people assigned to treatment
+status who actually received the treatment conversation, compared to the
+people assigned to placebo status who received the placebo conversation.
+Create a time series graph of the average treatment effects for the
+subgroup of people assigned to treatment status who actually received
+the treatment conversation and the people assigned to placebo status who
+received the placebo conversation compared to the full sample across
+time. How do the estimates differ from those computed in Question 1?
+
+To investigate the validity of these new estimates, compute the
+proportion of individuals who, among those contacted, actually engaged
+in the in-person conversation. Does this contact rate vary by whether
+the respondent is male or female (\texttt{vf\_female})? By party
+(\texttt{vf\_party})? By race (\texttt{vf\_race})? What do the results
+of this analysis imply about (1) the difference between these new
+estimates and those computed in Question 1 and (2) the internal validity
+of these new estimates? What does this complication of only some
+respondents receiving the treatment imply when interpreting the results
+presented in Question 1?
+
+\end{document}

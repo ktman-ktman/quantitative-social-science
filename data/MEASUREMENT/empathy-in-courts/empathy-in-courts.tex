@@ -1,0 +1,249 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Sources of Empathy in the Circuit Courts},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Sources of Empathy in the Circuit Courts}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+In this exercise, we will analyze the relationship between various
+demographic traits and pro-feminist voting behavior among circuit court
+judges. In a recent paper, Adam N. Glynn and Maya Sen argue that having
+a female child causes circuit court judges to make more pro-feminist
+decisions. The paper can be found at:
+
+Glynn, Adam N., and Maya Sen. (2015).
+\href{https://doi.org/10.1111/ajps.12118}{``Identifying Judicial
+Empathy: Does Having Daughters Cause Judges to Rule for Women's
+Issues?.''} \emph{American Journal of Political Science} Vol. 59, No. 1,
+pp.~37--54.
+
+The dataset \texttt{dbj.csv} contains the following variables about
+individual judges:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.34\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.59\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{name}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The judge's name
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{child}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The number of children each judge has.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{circuit.1}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Which federal circuit the judge serves in.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{girls}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The number of female children the judge has.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{progressive.vote}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The proportion of the judge's votes on women's issues which were decided
+in a pro-feminist direction.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{race}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The judge's race (\texttt{1} = white, \texttt{2} = African-American,
+\texttt{3} = Hispanic, \texttt{4} = Asian-American).
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{religion}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The judge's religion (\texttt{1} = Unitarian, \texttt{2} = Episcopalian,
+\texttt{3} = Baptist, \texttt{4} = Catholic, \texttt{5} = Jewish,
+\texttt{7} = Presbyterian, \texttt{8} = Protestant, \texttt{9} =
+Congregationalist, \texttt{10} = Methodist, \texttt{11} = Church of
+Christ, \texttt{16} = Baha'i, \texttt{17} = Mormon, \texttt{21} =
+Anglican, \texttt{24} = Lutheran, \texttt{99} = unknown).
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{republican}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Takes a value of \texttt{1} if the judge was appointed by a Republican
+president, \texttt{0} otherwise. Used as a proxy for the judge's party.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{sons}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The number of male children the judge has.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{woman}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Takes a value of \texttt{1} if the judge is a woman, \texttt{0}
+otherwise.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{X}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+Indicator for the observation number.
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+\texttt{yearb}
+\end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+The year the judge was born.
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsection{Question 1}\label{question-1}
+
+Load the \texttt{dbj.csv} file. Find how many judges there are in the
+dataset, as well as the gender and party composition of our dataset. Is
+the party composition different for male and female judges?
+Additionally, note that our outcome in this exercise will be the
+proportion of pro-feminist rulings. What is the range of this variable
+(\texttt{progressive.vote})?
+
+\subsection{Question 2}\label{question-2}
+
+Next, we consider differences between some groups. For each of the four
+groups (Republican men/women, Democratic men/women) defined by gender
+and partisanship, create a boxplot (using a single command) that
+illustrates the differences in \texttt{progressive.vote}. Briefly
+interpret the results of the analysis. For example, do any of the
+results surprise you? Does it appear that partisanship, gender, or both
+contribute to progressive voting patterns? Should we interpret any of
+these effects causally? Why or why not?
+
+\subsection{Question 3}\label{question-3}
+
+Create a new binary variable which takes a value of \texttt{1} if a
+judge has \emph{at least} one child (that is, any children at all),
+\texttt{0} otherwise. Then, use this variable to answer the following
+questions. Are Republicans and Democrats equally likely to be parents
+(that is, have at least one child)? Do judges with children vote
+differently than judges without? If so, how are they different? Do
+republican and democratic parents vote differently on feminist issues?
+
+\subsection{Question 4}\label{question-4}
+
+What is the difference in the proportion of pro-feminist decisions
+between judges who have at least one daughter and those who do not have
+any? Compute this difference in two ways; (1) using the entire sample,
+(2) separately by the number of children judges have (only considering
+judges that have 3 children or less). What assumptions are required for
+us to interpret these differences as causal estimates?
+
+\subsection{Question 5}\label{question-5}
+
+Next, we are going to consider the design of this study. The original
+authors assume that conditional on the number of children a judge has
+the number of daughters is random (as we did in the previous question).
+Indeed, this is the assumption that would justify the analysis of the
+previous question. For example, among the judges who have two children,
+the number of daughters -- either \texttt{0}, \texttt{1}, or \texttt{2}
+-- has nothing to do with the (observed or unobserved) pre-treatment
+characteristics of judges. Is this assumption reasonable? Is there a
+scenario under which this assumption can be violated? Do the data
+support the assumption?
+
+\end{document}

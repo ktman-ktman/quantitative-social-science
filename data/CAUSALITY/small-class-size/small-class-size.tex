@@ -1,0 +1,236 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Efficacy of Small-class Size in Early Education},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Efficacy of Small-class Size in Early Education}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{5 August 2015}
+
+
+\begin{document}
+
+\maketitle
+
+
+The STAR (Student-Teacher Achievement Ratio) Project is a four year
+\emph{longitudinal study} examining the effect of class size in early
+grade levels on educational performance and personal development.
+
+This exercise is in part based on: Mosteller, Frederick. 1997.
+``\href{http://dx.doi.org/10.2307/3824562}{The Tennessee Study of Class
+Size in the Early School Grades.}'' \emph{Bulletin of the American
+Academy of Arts and Sciences} 50(7): 14-25.
+
+A longitudinal study is one in which the same participants are followed
+over time. This particular study lasted from 1985 to 1989 involved
+11,601 students. During the four years of the study, students were
+randomly assigned to small classes, regular-sized classes, or
+regular-sized classes with an aid. In all, the experiment cost around
+\$12 million. Even though the program stopped in 1989 after the first
+kindergarten class in the program finished third grade, collection of
+various measurements (e.g., performance on tests in eighth grade,
+overall high school GPA) continued through the end of participants' high
+school attendance.
+
+We will analyze just a portion of this data to investigate whether the
+small class sizes improved performance or not. The data file name is
+\texttt{STAR.csv}, which is a CSV data file. The names and descriptions
+of variables in this data set are:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.25\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.68\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{race}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Student's race (White = 1, Black = 2, Asian = 3, Hispanic = 4, Native
+American = 5, Others = 6)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{classtype}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Type of kindergarten class (small = 1, regular = 2, regular with aid =
+3)
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{g4math}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Total scaled score for math portion of fourth grade standardized test
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{g4reading}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Total scaled score for reading portion of fourth grade standardized test
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{yearssmall}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Number of years in small classes
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{hsgrad}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+High school graduation (did graduate = 1, did not graduate = 0)
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+Note that there are a fair amount of missing values in this data set.
+For example, missing values arise because some students left a STAR
+school before third grade or did not enter a STAR school until first
+grade.
+
+\subsection{Question 1}\label{question-1}
+
+Create a new factor variable called \texttt{kinder} in the data frame.
+This variable should recode \texttt{classtype} by changing integer
+values to their corresponding informative labels (e.g., change 1 to
+\texttt{small} etc.). Similarly, recode the \texttt{race} variable into
+a factor variable with four levels (\texttt{white}, \texttt{black},
+\texttt{hispanic}, \texttt{others}) by combining Asians and Native
+Americans as the \texttt{others} category. For the \texttt{race}
+variable, overwrite the original variable in the data frame rather than
+creating a new one. Recall that \texttt{na.rm = TRUE} can be added to
+functions in order to remove missing data.
+
+\subsection{Question 2}\label{question-2}
+
+How does performance on fourth grade reading and math tests for those
+students assigned to a small class in kindergarten compare with those
+assigned to a regular-sized class? Do students in the smaller classes
+perform better? Use means to make this comparison while removing missing
+values. Give a brief substantive interpretation of the results. To
+understand the size of the estimated effects, compare them with the
+standard deviation of the test scores.
+
+\subsection{Question 3}\label{question-3}
+
+Instead of comparing just average scores of reading and math tests
+between those students assigned to small classes and those assigned to
+regular-sized classes, look at the entire range of possible scores. To
+do so, compare a high score, defined as the 66th percentile, and a low
+score (the 33rd percentile) for small classes with the corresponding
+score for regular classes. These are examples of \emph{quantile
+treatment effects}. Does this analysis add anything to the analysis
+based on mean in the previous question?
+
+\subsection{Question 4}\label{question-4}
+
+Some students were in small classes for all four years that the STAR
+program ran. Others were assigned to small classes for only one year and
+had either regular classes or regular classes with an aid for the rest.
+How many such students of each type are in the data set? Create a
+contingency table of proportions using the \texttt{kinder} and
+\texttt{yearsmall} variables. Does participation in more years of small
+classes make a greater difference in test scores? Compare the average
+and median reading and math test scores across students who spent
+different numbers of years in small classes.
+
+\subsection{Question 5}\label{question-5}
+
+We examine whether the STAR program reduced the achievement gaps across
+different racial groups. Begin by comparing the average reading and math
+test scores between white and minority students (i.e., Blacks and
+hispanics) among those students who were assigned to regular classes
+with no aid. Conduct the same comparison among those students who were
+assigned to small classes. Give a brief substantive interpretation of
+the results of your analysis.
+
+\subsection{Question 6}\label{question-6}
+
+We consider the long term effects of kindergarden class size. Compare
+high school graduation rates across students assigned to different class
+types. Also, examine whether graduation rates differ by the number of
+years spent in small classses. Finally, as done in the previous
+question, investigate whether the STAR program has reduced the racial
+gap between white and minority students' graduation rates. Briefly
+discuss the results.
+
+\end{document}

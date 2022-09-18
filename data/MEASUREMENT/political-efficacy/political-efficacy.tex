@@ -1,0 +1,280 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Political Efficacy in China and Mexico},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Political Efficacy in China and Mexico}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\maketitle
+
+
+In 2002, the World Health Organization conducted a survey of two
+provinces in China and three provinces in Mexico. This exercise is based
+on:
+
+\begin{quote}
+Gary King, Christopher J. L. Murray, Joshua A. Salomon, and Ajay Tandon.
+(2004). `\href{https://doi.org/10.1017/S000305540400108X}{Enhancing the
+Validity and Cross-Cultural Comparability of Measurement in Survey
+Research.}' \emph{American Political Science Review}, 98:1 (February),
+pp.191-207.
+\end{quote}
+
+In this exercise we analyze respondents' views on their own political
+efficacy. First, the following self-assessment question was asked.
+
+\begin{quote}
+How much say do you have in getting the government to address issues
+that interest you?
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{4}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Unlimited say, (4) A lot of say, (3) Some say, (2) Little say, (1) No
+  say at all.
+\end{enumerate}
+\end{quote}
+
+After the self-assessment question, three vignette questions were asked.
+
+\begin{quote}
+{[}Alison{]} lacks clean drinking water. She and her neighbors are
+supporting an opposition candidate in the forthcoming elections that has
+promised to address the issue. It appears that so many people in her
+area feel the same way that the opposition candidate will defeat the
+incumbent representative.
+
+{[}Jane{]} lacks clean drinking water because the government is pursuing
+an industrial development plan. In the campaign for an upcoming
+election, an opposition party has promised to address the issue, but she
+feels it would be futile to vote for the opposition since the government
+is certain to win.
+
+{[}Moses{]} lacks clean drinking water. He would like to change this,
+but he can't vote, and feels that no one in the government cares about
+this issue. So he suffers in silence, hoping something will be done in
+the future.
+\end{quote}
+
+The respondent was asked to assess each vignette in the same manner as
+the self-assessment question.
+
+\begin{quote}
+How much say does {[}`name'{]} in getting the government to address
+issues that interest {[}him/her{]}?
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{4}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Unlimited say, (4) A lot of say, (3) Some say, (2) Little say, (1) No
+  say at all.
+\end{enumerate}
+\end{quote}
+
+where {[}`name'{]} was replaced with either Alison, Jane, or Moses.
+
+The data set we analyze \texttt{vignettes.csv} contains the following
+variables:
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.25\columnwidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{0.68\columnwidth}\raggedright
+Description
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{self}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Self-assessment response
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{alison}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Response on Alison vignette
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{jane}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Response on Jane vignette
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{moses}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Response on Moses vignette
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{china}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+1 for China and 0 for Mexico
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.25\columnwidth}\raggedright
+\texttt{age}
+\end{minipage} & \begin{minipage}[t]{0.68\columnwidth}\raggedright
+Age of respondent in years
+\end{minipage}
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+In the analysis that follows, we assume that these survey responses can
+be treated as numerical values. For example, \texttt{Unlimited say} = 5,
+and \texttt{Little say} = 2.\\This approach is not appropriate if, for
+example, the difference between \texttt{Unlimited say} and
+\texttt{A lot of say} is not the same as the difference between
+\texttt{Little say} and \texttt{No say at all}. However, relaxing this
+assumption is beyond the scope of this chapter.
+
+\subsection{Question 1}\label{question-1}
+
+We begin by analyzing the self-assessment question. Plot the
+distribution of responses separately for China and Mexico using
+barplots, where the vertical axis is the proportion of respondents. In
+addition, compute the mean response for each country. Which country's
+respondents seemt to have a higher degree of political efficacy? Does
+this seem plausible when Mexican citizens voted out out the
+Institutional Revolutionary Party (PRI) after more than 70 years or rule
+and Chinese citizens have not been able to vote in a fair election to
+date?
+
+\subsection{Question 2}\label{question-2}
+
+We examine the possibility that any difference in the levels of efficacy
+between Mexican and Chinese respondents is due to the difference in
+their age distributions. Create histograms for the age variable
+separately for Mexican and Chinese respondents. Add a vertical line
+representing the median age of the respondents for each country. In
+addition, use a Quantile-Quantile plot to compare the two age
+distributions. What differences in age distribution do you observe
+between the two countries? Answer this by interpreting each plot.
+
+\subsection{Question 3}\label{question-3}
+
+One problem of the self-assessment question is that survey respondents
+may interpret the question differently. For example, two respondents who
+choose the same response category may be facing quite different
+political situations and hence may interpret \texttt{A lot of say}
+differently. To address this problem, we rank a respondent's answer to
+the self-assessment question relative to the same respondent's answer to
+a vignette question. Compute the proportion of respondents, again
+separately for China and Mexico, who ranks themselves (according to the
+self-assessment question) as having less say in the government's
+decisions than Moses (the last vignette). How does the result of this
+analysis differ from that of the previous analysis? Give a brief
+interpretation of the result.
+
+\subsection{Question 4}\label{question-4}
+
+Restrict the data to survey respondents who ranked these three vignettes
+in the expected order (i.e., \texttt{Alison} $\ge$ \texttt{Jane} $\ge$
+\texttt{Moses}). Now create a variable that represents how respondents
+rank themselves relative to each vignette. This variable should be equal
+to 1 if a respondent ranks themself lower than \texttt{Moses}, 2 if
+ranked the same as \texttt{Moses} or higher than \texttt{Moses} but
+lower than \texttt{Jane}, 3 if ranked the same as \texttt{Jane} or
+higher than \texttt{Jane} but lower than \texttt{Alison}, and 4 if
+ranked as high as \texttt{Alison} or higher. Create the barplots of this
+new variable as in Question 1. The vertical axis should represent the
+proportion of respondents for each response category. Also, compute the
+mean value of this new variable separately for China and Mexico. Give a
+brief interpretation of the result by comparing these results with those
+obtained in Question 1.
+
+\subsection{Question 5}\label{question-5}
+
+Is the problem identified above more or less severe among older
+respondents when compared to younger ones? Consider the previous
+question for those who are 40 years or older and those who are younger
+than 40 years. Do your conclusions between these two groups of
+respondents? Relate your discussion to your finding for Question 2.
+
+\end{document}
