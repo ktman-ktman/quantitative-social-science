@@ -1,10 +1,10 @@
 {
-    "name": "template",
+    "name": "quantitative-social-science",
     "build": {
         "dockerfile": "Dockerfile",
         "context": "..",
         "args": {
-            "VARIANT": "latest",
+            "VARIANT": "1.8.1-bullseye",
             "USERNAME": "vscode",
             "USE_UID": "1000",
             "USE_GID": "1000",
