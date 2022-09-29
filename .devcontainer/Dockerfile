@@ -12,11 +12,15 @@ RUN apt-get update \
     htop \
     python3.9 \
     python3.9-dev \
+    python3-pip \
     python3.9-venv \
     tmux \
     wget \
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install -U pip \
+    && pip3 install matplotlib
 
 # user
 ARG USERNAME="vscode"

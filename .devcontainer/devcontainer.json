@@ -21,10 +21,17 @@
         }
     },
     "extensions": [
-        "julialang.language-julia-insider",
-        "colinfang.markdown-julia",
+        "julialang.language-julia",
         "VisualStudioExptTeam.vscodeintellicode",
     ],
+    "containerEnv": {
+        "JULIA_PROJECT": "${containerWorkspaceFolder}",
+        "JULIA_DEPOT_PATH": "${containerWorkspaceFolder}/.julia",
+    },
+    // "runArgs": [
+    //     "--env-file",
+    //     ".devcontainer/devcontainer.env",
+    // ],
     "remoteUser": "vscode",
     "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
 }
